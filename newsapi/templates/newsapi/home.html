@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+<br />
+
+{% block content %}
+<h1>News</h1>
+<!--{{ data }}-->
+<br />
+{% for news in data.articles %}
+
+<h2>{{ news.title }}</h2>
+<p>{{ news.description }}</p>
+
+<img src="{{ news.urlToImage }}" />
+
+<a href="{{ news.url }}">Read more</a>
+
+<br />
+
+{% endfor %}
+<br />
+{% endblock %}
