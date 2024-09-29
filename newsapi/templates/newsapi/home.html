@@ -1,21 +1,104 @@
-{% extends 'base.html' %}
-<br />
+{% extends 'base.html' %} {% block content %}
+<h1 class="text-center">News</h1>
 
-{% block content %}
-<h1>News</h1>
-<!--{{ data }}-->
-<br />
-{% for news in data.articles %}
+<h2>Search by Country</h2>
+<!--Search by country-->
+<form action="" method="get" class="mb-4">
+  {% comment %}
+  <input
+    type="text"
+    name="country"
+    placeholder="Enter country"
+    class="form-control mb-2"
+  />
+  {% endcomment %}
+  <select name="country" class="form-control mb-2">
+    <option value="us">United States</option>
+    <option value="gb">United Kingdom</option>
+    <option value="fr">France</option>
+    <option value="de">Germany</option>
+    <option value="ng">Nigeria</option>
+    <!-- Add more country options as needed -->
+  </select>
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
 
-<h2>{{ news.title }}</h2>
-<p>{{ news.description }}</p>
+<h2>Search Category</h2>
+<!--Search by category-->
+<form action="" method="get" class="mb-4">
+  <input
+    type="text"
+    name="category"
+    placeholder="Enter category"
+    class="form-control mb-2"
+  />
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
 
-<img src="{{ news.urlToImage }}" />
+<!--Looping through articles-->
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for i in articles %}
+    <div class="col">
+      <div class="card rounded shadow-lg m-2">
+        <img
+          src="{{ i.urlToImage }}"
+          class="card-img-top"
+          alt="Image not available"
+        />
+        <div class="card-body">
+          <p class="card-text">{{ i.author }}</p>
+          <h5 class="card-title">{{ i.title }}</h5>
+          <p>{{ i.source.name }}</p>
+          <p class="card-text">{{ i.description }}</p>
+          <hr />
+          <small>Published at: {{ i.publishedAt }}</small>
+          <a href="{{ i.url }}" target="_blank" class="btn btn-success"
+            >Full News</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 
-<a href="{{ news.url }}">Read more</a>
+  <!-- Category List -->
+  <div class="col-md-4">
+    <h3><b>Category</b></h3>
+    <hr />
+    <ul class="list-group">
+      <li class="list-group-item">
+        <a class="btn btn-secondary" href="{% url 'home' %}?category=technology"
+          >Technology</a
+        >
+      </li>
+      <li class="list-group-item">
+        <a class="btn btn-success" href="{% url 'home' %}?category=health"
+          >Health</a
+        >
+      </li>
+      <li class="list-group-item">
+        <a class="btn btn-danger" href="{% url 'home' %}?category=Entertainment"
+          >Entertainment</a
+        >
+      </li>
+      <li class="list-group-item">
+        <a class="btn btn-secondary" href="{% url 'home' %}?category=Sports"
+          >Sports</a
+        >
+      </li>
+      <li class="list-group-item">
+        <a class="btn btn-primary" href="{% url 'home' %}?category=Science"
+          >Science</a
+        >
+      </li>
+      <li class="list-group-item">
+        <a class="btn btn-info" href="{% url 'home' %}?category=Business"
+          >Business</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
 
-<br />
-
-{% endfor %}
-<br />
 {% endblock %}
